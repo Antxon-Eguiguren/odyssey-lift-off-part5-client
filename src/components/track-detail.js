@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import {
-  colors,
-  Button,
-  IconRun,
-  IconView,
-  IconTime,
-  IconBook,
-} from '../styles';
+import { colors, Button, IconRun, IconView, IconTime, IconBook } from '../styles';
 import { humanReadableTimeFromSeconds } from '../utils/helpers';
 import { Link } from '@reach/router';
 import ContentSection from './content-section';
@@ -15,7 +8,7 @@ import MarkDown from './md-content';
 
 /**
  * Track Detail component renders the main content of a given track:
- * author, length, number of views, modules list, among other things.
+ * author, durationInSeconds, number of views, modules list, among other things.
  * It provides access to the first module of the track.
  */
 const TrackDetail = ({ track }) => {
@@ -24,7 +17,7 @@ const TrackDetail = ({ track }) => {
     description,
     thumbnail,
     author,
-    length,
+    durationInSeconds,
     modulesCount,
     modules,
     numberOfViews,
@@ -50,7 +43,7 @@ const TrackDetail = ({ track }) => {
             </IconAndLabel>
             <IconAndLabel>
               <IconTime width="14px" />
-              <div>{humanReadableTimeFromSeconds(length)}</div>
+              <div>{humanReadableTimeFromSeconds(durationInSeconds)}</div>
             </IconAndLabel>
           </DetailItem>
           <DetailItem>
@@ -60,11 +53,7 @@ const TrackDetail = ({ track }) => {
           </DetailItem>
           <div>
             <StyledLink to={`./module/${modules[0]['id']}`}>
-              <Button
-                icon={<IconRun width="20px" />}
-                color={colors.pink.base}
-                size="large"
-              >
+              <Button icon={<IconRun width="20px" />} color={colors.pink.base} size="large">
                 Start Track
               </Button>
             </StyledLink>
@@ -78,7 +67,7 @@ const TrackDetail = ({ track }) => {
                 <li key={module.title}>
                   <div>{module.title}</div>
                   <ModuleLength>
-                    {humanReadableTimeFromSeconds(module.length)}
+                    {humanReadableTimeFromSeconds(module.durationInSeconds)}
                   </ModuleLength>
                 </li>
               ))}
